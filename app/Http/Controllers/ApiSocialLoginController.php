@@ -6,6 +6,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
 
 class ApiSocialLoginController extends Controller
@@ -15,6 +16,7 @@ class ApiSocialLoginController extends Controller
         try {
             $redirectUrl = Socialite::driver($driver)->stateless()->redirect()->getTargetUrl();
             return response()->json(['url' => $redirectUrl]);
+
         } catch (Exception $e) {
             return response()->json(['error' => 'Unable to redirect to provider'], 500);
         }
